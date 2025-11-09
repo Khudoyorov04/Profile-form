@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Zamonaviy profil</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-dark: #0f2922;
+      --bg-light: #143d33;
+      --card: rgba(255, 255, 255, 0.08);
+      --border: rgba(255, 255, 255, 0.12);
+      --text: #e8f5ef;
+      --muted: #b8ccc3;
+      --accent: #36b487;
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-light) 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 20px;
+    }
+
+    /* LOGOTIP */
+    header {
+      position: fixed;
+      top: 18px;
+      left: 18px;
+    }
+
+    header img {
+      width: 80px; /* logoni biroz kattaroq qilib qo‘ydik */
+      height: auto;
+      border-radius: 6px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease;
+    }
+
+    header img:hover {
+      transform: scale(1.05);
+    }
+
+    /* KONTENT */
+    .container {
+      margin-top: 100px;
+      max-width: 600px;
+      width: 100%;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 25px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      text-align: center;
+      font-weight: 700;
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      font-size: 15px;
+      outline: none;
+      margin-bottom: 16px;
+      transition: border 0.2s;
+    }
+
+    input:focus, textarea:focus {
+      border: 1px solid var(--accent);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .avatar {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .avatar img {
+      width: 120px;
+      height: 120px;
+      border-radius: 14px;
+      object-fit: cover;
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 20px rgba(54,180,135,0.3);
+    }
+
+    .btn {
+      display: inline-block;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-size: 15px;
+    }
+
+    .btn:hover {
+      background: #2d9d74;
+    }
+
+    .note {
+      margin-top: 8px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGOTIP -->
+  <header>
+    <img src="https://i.postimg.cc/wTh6tDDG/photo-2025-11-09-17-15-55.jpg" alt="Khudoyorov Logo">
+  </header>
+
+  <div class="container">
+    <h1>Profil ma'lumotlari</h1>
+    <p>Zamonaviy mativiy dizayn</p>
+
+    <div class="avatar">
+      <img id="preview" src="" alt="Profil rasmi">
+    </div>
+
+    <label>Rasm yuklash</label>
+    <input id="photo" type="file" accept="image/*">
+
+    <label>Ism</label>
+    <input id="name" type="text" placeholder="Ismingiz">
+
+    <label>Familiya</label>
+    <input id="surname" type="text" placeholder="Familiyangiz">
+
+    <label>Bio</label>
+    <textarea id="bio" placeholder="O'zingiz haqida qisqacha..."></textarea>
+
+    <button id="sendBtn" class="btn">Jo‘natish Telegramga</button>
+    <div class="note">Ma'lumotlar @Khudoyorov_04 ga yuboriladi.</div>
+  </div>
+
+  <script>
+    const photoInput = document.getElementById('photo');const preview = document.getElementById('preview');
+    const nameInput = document.getElementById('name');
+    const surnameInput = document.getElementById('surname');
+    const bioInput = document.getElementById('bio');
+    const sendBtn = document.getElementById('sendBtn');
+
+    photoInput.addEventListener('change', () => {
+      const f = photoInput.files[0];
+      if (!f) { preview.src = ''; return; }
+      const url = URL.createObjectURL(f);
+      preview.src = url;
+    });
+
+    sendBtn.addEventListener('click', () => {
+      const name = nameInput.value.trim();
+      const surname = surnameInput.value.trim();
+      const bio = bioInput.value.trim();
+      if (!name && !surname && !bio) {
+        alert('Iltimos, kamida bitta maydonni to‘ldiring.');
+        return;
+      }
+      let message = Ism: ${name} ${surname}\nBio: ${bio};
+      const tgUrl = https://t.me/share/url?url=&text=${encodeURIComponent(message)};
+      window.open(tgUrl, '_blank');
+    });
+  </script>
+
+</body>
+</html>
