@@ -2,7 +2,7 @@
 <html lang="uz">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Zamonaviy profil</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -40,7 +40,7 @@
     }
 
     header img {
-      width: 80px; /* logoni biroz kattaroq qilib qo‘ydik */
+      width: 80px;
       height: auto;
       border-radius: 6px;
       box-shadow: 0 0 10px rgba(0,0,0,0.3);
@@ -157,7 +157,7 @@
 
   <div class="container">
     <h1>Profil ma'lumotlari</h1>
-    <p>Zamonaviy mativiy dizayn</p>
+    <p>Zamonaviy motivatsion dizayn</p>
 
     <div class="avatar">
       <img id="preview" src="" alt="Profil rasmi">
@@ -180,30 +180,38 @@
   </div>
 
   <script>
-    const photoInput = document.getElementById('photo');const preview = document.getElementById('preview');
+    const photoInput = document.getElementById('photo');
+    const preview = document.getElementById('preview');
     const nameInput = document.getElementById('name');
     const surnameInput = document.getElementById('surname');
     const bioInput = document.getElementById('bio');
     const sendBtn = document.getElementById('sendBtn');
 
+    // Rasm oldindan ko‘rsatish
     photoInput.addEventListener('change', () => {
-      const f = photoInput.files[0];
-      if (!f) { preview.src = ''; return; }
-      const url = URL.createObjectURL(f);
+      const file = photoInput.files[0];
+      if (!file) {
+        preview.src = '';
+        return;
+      }
+      const url = URL.createObjectURL(file);
       preview.src = url;
     });
 
+    // Telegramga yuborish
     sendBtn.addEventListener('click', () => {
       const name = nameInput.value.trim();
       const surname = surnameInput.value.trim();
       const bio = bioInput.value.trim();
+
       if (!name && !surname && !bio) {
-        alert('Iltimos, kamida bitta maydonni to‘ldiring.');
+        alert("Iltimos, kamida bitta maydonni to‘ldiring.");
         return;
       }
-      let message = Ism: ${name} ${surname}\nBio: ${bio};
+
+      const message = Ism: ${name} ${surname}\nBio: ${bio};
       const tgUrl = https://t.me/share/url?url=&text=${encodeURIComponent(message)};
-      window.open(tgUrl, '_blank');
+      window.open(tgUrl, "_blank");
     });
   </script>
 
