@@ -8,23 +8,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --bg-dark: #0f2922;
-      --bg-light: #143d33;
-      --card: rgba(255, 255, 255, 0.08);
-      --border: rgba(255, 255, 255, 0.12);
-      --text: #e8f5ef;
-      --muted: #b8ccc3;
-      --accent: #36b487;
-      --radius: 14px;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-light) 100%);
-      color: var(--text);
+      background: linear-gradient(180deg, #0f2922 0%, #143d33 100%);
+      color: #e8f5ef;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -32,139 +19,54 @@
       padding: 30px 20px;
     }
 
-    /* LOGOTIP */
-    header {
-      position: fixed;
-      top: 18px;
-      left: 18px;
-    }
-
-    header img {
-      width: 80px;
-      height: auto;
-      border-radius: 6px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-      transition: transform 0.2s ease;
-    }
-
-    header img:hover {
-      transform: scale(1.05);
-    }
-
-    /* KONTENT */
     .container {
       margin-top: 100px;
       max-width: 600px;
       width: 100%;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
       padding: 25px;
       backdrop-filter: blur(6px);
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
     }
 
-    h1 {
-      text-align: center;
-      font-weight: 700;
-      font-size: 22px;
-      margin-bottom: 12px;
-    }
+    h1 { text-align: center; margin-bottom: 12px; }
+    p { text-align: center; color: #b8ccc3; margin-bottom: 20px; }
 
-    p {
-      text-align: center;
-      color: var(--muted);
-      font-size: 14px;
-      margin-bottom: 24px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: 600;
-      font-size: 14px;
-    }
+    label { display: block; font-weight: 600; margin-bottom: 6px; }
 
     input, textarea {
       width: 100%;
       padding: 12px;
-      border: 1px solid var(--border);
+      border: 1px solid rgba(255,255,255,0.12);
       border-radius: 10px;
       background: rgba(255,255,255,0.05);
-      color: var(--text);
+      color: #e8f5ef;
       font-size: 15px;
-      outline: none;
       margin-bottom: 16px;
-      transition: border 0.2s;
-    }
-
-    input:focus, textarea:focus {
-      border: 1px solid var(--accent);
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 100px;
-    }
-
-    .avatar {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-
-    .avatar img {
-      width: 120px;
-      height: 120px;
-      border-radius: 14px;
-      object-fit: cover;
-      border: 2px solid var(--accent);
-      box-shadow: 0 0 20px rgba(54,180,135,0.3);
+      outline: none;
     }
 
     .btn {
-      display: inline-block;
       width: 100%;
       padding: 12px;
       border: none;
       border-radius: 10px;
-      background: var(--accent);
+      background: #36b487;
       color: #fff;
       font-weight: 600;
       cursor: pointer;
       transition: background 0.2s;
-      font-size: 15px;
     }
-
-    .btn:hover {
-      background: #2d9d74;
-    }
-
-    .note {
-      margin-top: 8px;
-      text-align: center;
-      font-size: 13px;
-      color: var(--muted);
-    }
+    .btn:hover { background: #2d9d74; }
   </style>
 </head>
 <body>
 
-  <!-- LOGOTIP -->
-  <header>
-    <img src="https://i.postimg.cc/wTh6tDDG/photo-2025-11-09-17-15-55.jpg" alt="Khudoyorov Logo">
-  </header>
-
   <div class="container">
     <h1>Profil ma'lumotlari</h1>
     <p>Zamonaviy motivatsion dizayn</p>
-
-    <div class="avatar">
-      <img id="preview" src="" alt="Profil rasmi">
-    </div>
-
-    <label>Rasm yuklash</label>
-    <input id="photo" type="file" accept="image/*">
 
     <label>Ism</label>
     <input id="name" type="text" placeholder="Ismingiz">
@@ -176,42 +78,42 @@
     <textarea id="bio" placeholder="O'zingiz haqida qisqacha..."></textarea>
 
     <button id="sendBtn" class="btn">Jo‘natish Telegramga</button>
-    <div class="note">Ma'lumotlar @Khudoyorov_04 ga yuboriladi.</div>
+    <p style="text-align:center; color:#b8ccc3; margin-top:8px;">Ma'lumotlar @Khudoyorov_04 ga yuboriladi.</p>
   </div>
 
   <script>
-    const photoInput = document.getElementById('photo');
-    const preview = document.getElementById('preview');
-    const nameInput = document.getElementById('name');
-    const surnameInput = document.getElementById('surname');
-    const bioInput = document.getElementById('bio');
-    const sendBtn = document.getElementById('sendBtn');
+    const BOT_TOKEN = "8352871965:AAHnFMXCKUX-egMob1cwz10BgrozMrDzlRw";
+    const CHAT_ID = "6029761760";
 
-    // Rasm oldindan ko‘rsatish
-    photoInput.addEventListener('change', () => {
-      const file = photoInput.files[0];
-      if (!file) {
-        preview.src = '';
-        return;
-      }
-      const url = URL.createObjectURL(file);
-      preview.src = url;
-    });
-
-    // Telegramga yuborish
-    sendBtn.addEventListener('click', () => {
-      const name = nameInput.value.trim();
-      const surname = surnameInput.value.trim();
-      const bio = bioInput.value.trim();
+    document.getElementById("sendBtn").addEventListener("click", () => {
+      const name = document.getElementById("name").value.trim();
+      const surname = document.getElementById("surname").value.trim();
+      const bio = document.getElementById("bio").value.trim();
 
       if (!name && !surname && !bio) {
         alert("Iltimos, kamida bitta maydonni to‘ldiring.");
         return;
       }
 
-      const message = Ism: ${name} ${surname}\nBio: ${bio};
-      const tgUrl = https://t.me/share/url?url=&text=${encodeURIComponent(message)};
-      window.open(tgUrl, "_blank");
+      const message = 🧾 Yangi profil ma'lumotlari:\n\n👤 Ism: ${name} ${surname}\n📝 Bio: ${bio};
+
+      fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: message
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if(data.ok) alert("✅ Ma'lumot yuborildi!");
+        else alert("❌ Xatolik yuz berdi!");
+      })
+      .catch(err => {
+        console.error(err);
+        alert("❌ Xatolik yuz berdi!");
+      });
     });
   </script>
 
